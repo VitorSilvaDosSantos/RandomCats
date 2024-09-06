@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatinhos Aleatórios</title>
+</head>
+<body>
+    <h1>Imagem Aleatória de Gatinho</h1>
+    <div id="cat-container">
+        <img id="cat-image" alt="Imagem de um gatinho fofo" />
+    </div>
+
+    <script>
+        // Função que obtém uma imagem de gatinho da API
+        function fetchCatImage() {
+            fetch('https://api.thecatapi.com/v1/images/search')
+            .then(response => response.json())  // Converte a resposta em JSON
+            .then(data => {
+                
+                const imageUrl = data[0].url;
+
+                // Atualiza a tag <img> com a nova imagem
+                const imgElement = document.getElementById('cat-image');
+                imgElement.src = imageUrl;
+                imgElement.style.width = '300px'; 
+                imgElement.style.height = 'auto'; 
+            })
+            .catch(error => {
+                console.error('Erro ao carregar a imagem:', error);
+                alert('Não foi possível carregar a imagem. Tente novamente mais tarde.');
+            });
+        }
+
+        // Chama a funçao quando a página for carregada
+        window.onload = fetchCatImage;
+    </script>
+</body>
+</html>
